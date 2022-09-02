@@ -35,7 +35,7 @@ jobs:
       - name: Deploy To Server
         run: |
           echo 'Starting to Deploy...'
-          ssh ubuntu@${{ secrets.IP_PRODUCTION }} "
+          ssh ubuntu@${{ secrets.IP }} "
           touch test.txt
           "
           echo 'Deployment completed successfully'
