@@ -19,9 +19,6 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
-      - name: clean install
-        run: mvn clean install
-
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -36,6 +33,7 @@ jobs:
       - name: Deploy To Server
         run: |
           echo 'Starting to Deploy...'
-          pwd
+          mvn clean install
+          ls target
           scp target/latihancicd-0.0.1-SNAPSHOT.jar ubuntu@${{ secrets.IP }}""
           echo 'Deployment completed successfully'
