@@ -2,7 +2,7 @@ name: CONTINOUS DEPLOYMENT
 
 on:
   release:
-    types: [published]
+    types: [ published ]
   workflow_dispatch:
 
 jobs:
@@ -37,10 +37,9 @@ jobs:
 
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.IP }} >> ~/.ssh/known_hosts
-
-- name: Deploy To Server
-  run: |
-    echo 'Starting to Deploy...'
-    echo pwd
-    scp target\latihancicd0.0.1-SNAPSHOT.jar ubuntu@${{ secrets.IP }}:/home/ubuntu
-    echo 'Deployment completed successfully'
+      - name: Deploy To Server
+        run: |
+          echo 'Starting to Deploy...'
+          echo pwd
+          scp target\latihancicd0.0.1-SNAPSHOT.jar ubuntu@${{ secrets.IP }}:/home/ubuntu
+          echo 'Deployment completed successfully'
