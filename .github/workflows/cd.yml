@@ -35,6 +35,7 @@ jobs:
       - name: Deploy To Server
         run: |
           echo 'Starting to Deploy...'
+          eval $(ssh-agent -s)
           ssh ubuntu@${{ secrets.IP }} "
           touch test.txt
           "
