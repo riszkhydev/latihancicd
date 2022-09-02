@@ -19,6 +19,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -30,10 +31,11 @@ jobs:
 
       - name: Adding Known Hosts
         run: ssh-keyscan -H 206.189.94.139 >> ~/.ssh/known_hosts
+
       - name: Deploy To Server
         run: |
           echo 'Starting to Deploy...'
-          mvn clean install
-          ls target
-          scp target/latihancicd-0.0.1-SNAPSHOT.jar root@206.189.94.139:/home/ubuntu
+          ssh ubuntu@${{ secrets.IP_PRODUCTION }} "
+          touch test.txt
+          "
           echo 'Deployment completed successfully'
