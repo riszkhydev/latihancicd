@@ -1,0 +1,47 @@
+name: CONTINOUS DEPLOYMENT
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: clean install
+        run: mvn clean install
+
+  continuous-deployment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.KEY }}
+          known_hosts: "just-a-placeholder-so-we-dont-get-errors"
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.IP }} >>
+  ~/.ssh/known_hosts
+
+- name: Deploy To Server
+  run: |
+    echo 'Starting to Deploy...'
+    echo pwd
+    scp target\latihancicd0.0.1-SNAPSHOT.jar ubuntu@${{ secrets.IP }}:/home/ubuntu
+    echo 'Deployment completed successfully'

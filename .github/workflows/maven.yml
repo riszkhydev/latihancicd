@@ -22,5 +22,4 @@ jobs:
         cache: maven
     - name: clean install
       run: mvn clean install
-    - name: running
-      run: java -jar target/latihancicd-snapshot-1.0.0.jar
+
