@@ -22,4 +22,4 @@ jobs:
         cache: maven
     - name: clean install
       run: mvn clean install
-    
+
