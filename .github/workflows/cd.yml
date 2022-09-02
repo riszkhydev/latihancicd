@@ -1,8 +1,8 @@
 name: CONTINOUS DEPLOYMENT
 
 on:
-  release:
-    types: [ published ]
+  push:
+    branches: [ "develop"]
   workflow_dispatch:
 
 jobs:
@@ -22,10 +22,6 @@ jobs:
       - name: clean install
         run: mvn clean install
 
-  continuous-deployment:
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -40,6 +36,6 @@ jobs:
       - name: Deploy To Server
         run: |
           echo 'Starting to Deploy...'
-          echo pwd
-          scp target\latihancicd0.0.1-SNAPSHOT.jar ubuntu@${{ secrets.IP }}:/home/ubuntu
+          pwd
+          scp target\latihancicd-0.0.1-SNAPSHOT.jar ubuntu@${{ secrets.IP }}""
           echo 'Deployment completed successfully'
