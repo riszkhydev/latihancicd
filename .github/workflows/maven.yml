@@ -23,4 +23,4 @@ jobs:
     - name: clean install
       run: mvn clean install
     - name: running
-      run: java -jar target/latihancicd-snapshot-1.0.0.jar
+      run: java -jar target/latihancicd-0.0.1-SNAPSHOT.jar
